@@ -1,0 +1,1 @@
+In this folder the MazeBuilder stores the generated bundle tag tags.yaml file.
