@@ -23,6 +23,10 @@ Use `create_plate_for_laser.py` to create a svg file to lasercut a large MDF pla
 
 The svg files are stored to the folder `final_plates_to_laser`.
 
+The described pipline to generate svg data for a lasercutter are rather tailored (hardcoded) to the described plate and wall dimensions. If you want to adapt these, you will have to adapt the code in `create_plate_for_laser.py` and also the `sample_*_empty.svg` data in `maze_craft/do_not_touch`. The files `*backup.svg` can be ignored. To create a new `sample_*_empty.svg`, the files `sample_hinten.svg` and `sample_vorne.svg` were manually created and then the respective lines of code that describe the tags were removed manually.
+
+If you also want to change the AprilTag dimensions, you will also have to adapt the file `process_tags.py`.
+
 ## Setup a maze
 
 Corresponding code in folder `setup_maze`.
@@ -32,6 +36,8 @@ In a command window run `python maze_builder.py` (Python 3) and follow the instr
 An exmaplary command line input, which generates the maze seen in the picture above, is:
 
 [Exemplary command line input](https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/console_example.png)
+
+The described pipeline to generate the yaml data for a specifig maze configuration is coded adaptively. If you want to adapt parameters like the size of walls of the space between walls, you can simply adapt them in the `class Wall` in `wall.py` and the `class Maze` in  `maze.py` (e.g. parameters `offset-to_ground` and `space_between_walls`).
 
 Have fun!
 

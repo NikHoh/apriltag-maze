@@ -102,6 +102,9 @@ class Maze(object):
 
     def create_walls(self):
         wall = Wall()
+        assert wall.thickness == self.space_between_walls, "Wall thickness is assumed to equal the space_between_walls " \
+                                                           "in the position calculations. Here they differ. " \
+                                                           "No guarantee for proper results."
         for row_id, row in enumerate(self.rows_with_horizontal_walls):
             for tag_index, tag_id in enumerate(row):
                 if tag_id == -1:
