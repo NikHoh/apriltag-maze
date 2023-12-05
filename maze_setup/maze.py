@@ -161,14 +161,21 @@ class Maze(object):
 
     def advanced_plot(self):
         user_input = input("Do you want a 3D plot of your maze (matplotlib package must be installed)? (y or n):")
+
         if user_input == "y":
+            import matplotlib
             import matplotlib.pyplot as plt
             from matplotlib.patches import PathPatch
             from matplotlib.patches import Rectangle
             from matplotlib.text import TextPath
             from matplotlib.transforms import Affine2D
             import mpl_toolkits.mplot3d.art3d as art3d
-
+            matlib_version = matplotlib.__version__.split(".")
+            if int(matlib_version[0]) < 3 or (int(matlib_version[0]) == 3 and int(matlib_version[1]) < 8):
+                print(f"Your matplotlib version is {matplotlib.__version__}")
+                print("You need ad least matplotlib version 3.8.0.")
+                print("Continue without 3D plot.")
+                return
 
             def text3d(ax, xyz, s, zdir="z", size=None, angle=0, **kwargs):
                 """
