@@ -29,6 +29,10 @@ Corresponding code in folder `setup_maze`.
 
 In a command window run `python maze_builder.py` (Python 3) and follow the instructions on the screen. The program will read in the AprilTags IDs of your current maze configuration, plot it, and save the corresponding tags.yaml file, which is used by the AprilTag Detection to localize with respect to the maze, in the folder `output`.
 
+An exmaplary command line input, which generates the maze seen in the picture above, is:
+
+[Exemplary command line input](https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/console_example.png)
+
 Have fun!
 
 
