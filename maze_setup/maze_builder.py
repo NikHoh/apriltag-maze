@@ -99,6 +99,8 @@ class MazeBuilder(object):
 
         self.maze.simple_plot()
 
+        self.maze.advanced_plot()
+
 
 
     def get_maze_ids_from_user(self):
@@ -136,7 +138,8 @@ class MazeBuilder(object):
         self.maze.rows_with_horizontal_walls = tag_ids_horizontal_walls
         self.maze.rows_with_vertical_walls = tag_ids_vertical_walls
 
-
+    def save_yaml(self):
+        pass
         
 
 
@@ -145,9 +148,7 @@ def main():
     maze_builder = MazeBuilder()
     maze_builder.init_maze()
     maze_builder.get_maze_parameters_from_user()
-    user_input = "Do you want a 3D plot of your maze (matplotlib package must be installed)? (y or n):"
-    if user_input == "y":
-        maze_builder.maze.advanced_plot()
+    maze_builder.save_yaml()
     print("End of program. Thanks and see you soon.")
 
 

@@ -159,97 +159,99 @@ class Maze(object):
         print(maze_string)
 
 
-    def advanced_plot(self, see_id=False):
-        import matplotlib.pyplot as plt
-        from matplotlib.patches import Circle, PathPatch
-        from matplotlib.patches import Rectangle
-        from matplotlib.text import TextPath
-        from matplotlib.transforms import Affine2D
-        import mpl_toolkits.mplot3d.art3d as art3d
-        from mpl_toolkits.mplot3d.art3d import Text3D
-
-        def text3d(ax, xyz, s, zdir="z", size=None, angle=0, **kwargs):
-            """
-            Copyright: https://matplotlib.org/stable/gallery/mplot3d/pathpatch3d.html#sphx-glr-gallery-mplot3d-pathpatch3d-py
-            Plots the string *s* on the axes *ax*, with position *xyz*, size *size*,
-            and rotation angle *angle*. *zdir* gives the axis which is to be treated as
-            the third dimension. *usetex* is a boolean indicating whether the string
-            should be run through a LaTeX subprocess or not.  Any additional keyword
-            arguments are forwarded to `.transform_path`.
-
-            Note: zdir affects the interpretation of xyz.
-            """
-            x, y, z = xyz
-            if zdir == "y":
-                xy1, z1 = (x, z), y
-                zdir = (0,1,0)
-            elif zdir == "x":
-                xy1, z1 = (y, z), x
-                zdir = (1, 0, 0)
-            elif zdir == "z":
-                xy1, z1 = (x, y), z
-                zdir = (0,0,1)
-            else:
-                assert 1 == 0, "zdir not defined"
-
-            text_path = TextPath((0, 0), s, size=size, usetex=False)
-            trans = Affine2D().rotate(angle).translate(xy1[0], xy1[1])
-
-            p1 = PathPatch(trans.transform_path(text_path), **kwargs)
-            ax.add_patch(p1)
-            art3d.pathpatch_2d_to_3d(p1, z=z1, zdir=zdir)
-        fig = plt.figure()
-        ax = fig.add_subplot(projection='3d')
+    def advanced_plot(self):
+        user_input = input("Do you want a 3D plot of your maze (matplotlib package must be installed)? (y or n):")
+        if user_input == "y":
+            import matplotlib.pyplot as plt
+            from matplotlib.patches import PathPatch
+            from matplotlib.patches import Rectangle
+            from matplotlib.text import TextPath
+            from matplotlib.transforms import Affine2D
+            import mpl_toolkits.mplot3d.art3d as art3d
 
 
-        for wall in self.walls:
-            # plot the side of the wall with the smallest id
-            if wall.placement == Placement.HORIZONTAL:
-                r1 = Rectangle((wall.pos_y - (wall.width / 2),
-                               wall.pos_z - (wall.height / 2)),
-                               wall.width,
-                               wall.height,
-                               color="b")
-                text3d(ax, (wall.pos_x-50, wall.pos_y, 0), str(wall.tags[0].tag_id), zdir="z", angle=-math.pi/2, size=40, zorder=10)
-                r2 = Rectangle((wall.pos_y - (wall.width / 2),
-                                wall.pos_z - (wall.height / 2)),
-                               wall.width,
-                               wall.height,
-                               color="r")
-                text3d(ax, (wall.pos_x+50, wall.pos_y, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi/2, size=40, zorder=10)
-            elif wall.placement == Placement.VERTICAL:
-                r1 = Rectangle((wall.pos_x - (wall.width / 2),
-                                wall.pos_z - (wall.height / 2)),
-                               wall.width,
-                               wall.height,
-                               color="b")
-                text3d(ax, (wall.pos_x, wall.pos_y-50, 0), str(wall.tags[0].tag_id), zdir="z", size=40, zorder=10)
-                r2 = Rectangle((wall.pos_x - (wall.width / 2),
-                                wall.pos_z - (wall.height / 2)),
-                               wall.width,
-                               wall.height,
-                               color="r")
-                text3d(ax, (wall.pos_x, wall.pos_y+50, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi, size=40, zorder=10)
-            ax.add_patch(r1)
-            ax.add_patch(r2)
-            if wall.placement == Placement.HORIZONTAL:
-                art3d.pathpatch_2d_to_3d(r1, z=wall.pos_x, zdir="x")
-                art3d.pathpatch_2d_to_3d(r2, z=wall.pos_x+wall.thickness, zdir="x")
-            elif wall.placement == Placement.VERTICAL:
-                art3d.pathpatch_2d_to_3d(r1, z=wall.pos_y, zdir="y")
-                art3d.pathpatch_2d_to_3d(r2, z=wall.pos_y + wall.thickness, zdir="y")
-        x_size = (self.number_of_rows+1)*self.walls[0].width
-        y_size = (self.number_of_columns+1)*self.walls[0].width
-        z_size = int(self.walls[0].height*1.5)
-        ax.set_xlim(0, x_size)
-        ax.set_ylim(0, y_size)
-        ax.set_zlim(0, z_size)
-        ax.set_xlabel("x")
-        ax.set_ylabel("y")
-        ax.set_zlabel("z")
+            def text3d(ax, xyz, s, zdir="z", size=None, angle=0, **kwargs):
+                """
+                Copyright: https://matplotlib.org/stable/gallery/mplot3d/pathpatch3d.html#sphx-glr-gallery-mplot3d-pathpatch3d-py
+                Plots the string *s* on the axes *ax*, with position *xyz*, size *size*,
+                and rotation angle *angle*. *zdir* gives the axis which is to be treated as
+                the third dimension. *usetex* is a boolean indicating whether the string
+                should be run through a LaTeX subprocess or not.  Any additional keyword
+                arguments are forwarded to `.transform_path`.
 
-        ax.set_box_aspect((1, y_size/x_size, z_size/x_size))
-        plt.show()
+                Note: zdir affects the interpretation of xyz.
+                """
+                x, y, z = xyz
+                if zdir == "y":
+                    xy1, z1 = (x, z), y
+                    zdir = (0,1,0)
+                elif zdir == "x":
+                    xy1, z1 = (y, z), x
+                    zdir = (1, 0, 0)
+                elif zdir == "z":
+                    xy1, z1 = (x, y), z
+                    zdir = (0,0,1)
+                else:
+                    assert 1 == 0, "zdir not defined"
+
+                text_path = TextPath((0, 0), s, size=size, usetex=False)
+                trans = Affine2D().rotate(angle).translate(xy1[0], xy1[1])
+
+                p1 = PathPatch(trans.transform_path(text_path), **kwargs)
+                ax.add_patch(p1)
+                art3d.pathpatch_2d_to_3d(p1, z=z1, zdir=zdir)
+            fig = plt.figure()
+            ax = fig.add_subplot(projection='3d')
+
+
+            for wall in self.walls:
+                # plot the side of the wall with the smallest id
+                if wall.placement == Placement.HORIZONTAL:
+                    r1 = Rectangle((wall.pos_y - (wall.width / 2),
+                                   wall.pos_z - (wall.height / 2)),
+                                   wall.width,
+                                   wall.height,
+                                   color="b")
+                    text3d(ax, (wall.pos_x-50, wall.pos_y, 0), str(wall.tags[0].tag_id), zdir="z", angle=-math.pi/2, size=40, zorder=10)
+                    r2 = Rectangle((wall.pos_y - (wall.width / 2),
+                                    wall.pos_z - (wall.height / 2)),
+                                   wall.width,
+                                   wall.height,
+                                   color="r")
+                    text3d(ax, (wall.pos_x+50, wall.pos_y, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi/2, size=40, zorder=10)
+                elif wall.placement == Placement.VERTICAL:
+                    r1 = Rectangle((wall.pos_x - (wall.width / 2),
+                                    wall.pos_z - (wall.height / 2)),
+                                   wall.width,
+                                   wall.height,
+                                   color="b")
+                    text3d(ax, (wall.pos_x, wall.pos_y-50, 0), str(wall.tags[0].tag_id), zdir="z", size=40, zorder=10)
+                    r2 = Rectangle((wall.pos_x - (wall.width / 2),
+                                    wall.pos_z - (wall.height / 2)),
+                                   wall.width,
+                                   wall.height,
+                                   color="r")
+                    text3d(ax, (wall.pos_x, wall.pos_y+50, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi, size=40, zorder=10)
+                ax.add_patch(r1)
+                ax.add_patch(r2)
+                if wall.placement == Placement.HORIZONTAL:
+                    art3d.pathpatch_2d_to_3d(r1, z=wall.pos_x, zdir="x")
+                    art3d.pathpatch_2d_to_3d(r2, z=wall.pos_x+wall.thickness, zdir="x")
+                elif wall.placement == Placement.VERTICAL:
+                    art3d.pathpatch_2d_to_3d(r1, z=wall.pos_y, zdir="y")
+                    art3d.pathpatch_2d_to_3d(r2, z=wall.pos_y + wall.thickness, zdir="y")
+            x_size = (self.number_of_rows+1)*self.walls[0].width
+            y_size = (self.number_of_columns+1)*self.walls[0].width
+            z_size = int(self.walls[0].height*1.5)
+            ax.set_xlim(0, x_size)
+            ax.set_ylim(0, y_size)
+            ax.set_zlim(0, z_size)
+            ax.set_xlabel("x")
+            ax.set_ylabel("y")
+            ax.set_zlabel("z")
+
+            ax.set_box_aspect((1, y_size/x_size, z_size/x_size))
+            plt.show()
 
 
 
