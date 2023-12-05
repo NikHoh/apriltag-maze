@@ -74,9 +74,10 @@ class MazeBuilder(object):
         print("The x axis is pointing downwards, the y axis is pointing to the right")
         print("The maze consists of walls.")
         print("A wall is assumed to have two AprilTags on the front (one big, one small) and two AprilTags on the back "
-              "(again one big and one small")
-        print("The four IDs of the four AprilTags on one wall are always sequential and start with an even integer, e.g.,"
-              "4,5,6,7")
+              "(again one big and one small)")
+        print("The four IDs of the four AprilTags on one wall are always sequential and start with an even integer that "
+              "is a multiple of 4, e.g.,"
+              "4,5,6,7 are the four IDs on a wall.")
         print("When I ask you for the ID of a wall, I only need the smallest (and thus even) ID on the wall.")
         border_line()
         print("Important: Looking from the bird's perspective on the maze, I assume that the tag with the smallest ID "
@@ -144,6 +145,11 @@ def main():
     maze_builder = MazeBuilder()
     maze_builder.init_maze()
     maze_builder.get_maze_parameters_from_user()
+    user_input = "Do you want a 3D plot of your maze (matplotlib package must be installed)? (y or n):"
+    if user_input == "y":
+        maze_builder.maze.advanced_plot()
+    print("End of program. Thanks and see you soon.")
+
 
 
 if __name__ == '__main__':
