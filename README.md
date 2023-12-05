@@ -1,5 +1,5 @@
 # Craft a maze from lasercut MDF walls and generate the corresponding AprilTag Bundle YAML
-Code to craft (lasercut) a wooden maze, whose walls are engraved with AprilTags and generate the according  tag_bundle.yaml for the AprilTag detection library.
+Code to craft (lasercut) a wooden maze, whose walls are engraved with AprilTags (https://github.com/AprilRobotics/apriltag) and generate the according  tag_bundle.yaml for the AprilTag detection library.
 
 3D plot of examplary maze            |  Examplary real maze 
 :-------------------------:|:-------------------------:
@@ -37,7 +37,7 @@ An exmaplary command line input, which generates the maze seen in the picture ab
 
 [Exemplary command line input](https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/console_example.png)
 
-The described pipeline to generate the yaml data for a specifig maze configuration is coded adaptively. If you want to adapt parameters like the size of walls of the space between walls, you can simply adapt them in the `class Wall` in `wall.py` and the `class Maze` in  `maze.py` (e.g. parameters `offset-to_ground` and `space_between_walls`).
+The described pipeline to generate the yaml data for a specific maze configuration is coded adaptively. If you want to adapt parameters like the size of walls or the space between walls, you can simply adapt them in the `class Wall` in `wall.py` (e.g. parameters `width`, `height`, and `thickness`) and the `class Maze` in  `maze.py` (e.g. parameters `offset-to_ground` and `space_between_walls`).
 
 Have fun!
 
