@@ -1,7 +1,7 @@
 # Craft a maze from lasercut MDF walls and generate the corresponding AprilTag Bundle YAML
 Code to craft (lasercut) a wooden maze, whose walls are engraved with AprilTags (https://github.com/AprilRobotics/apriltag) and generate the according  tag_bundle.yaml for the AprilTag detection library.
 
-3D plot of examplary maze            |  Examplary real maze 
+3D plot of exemplary maze            |  Exemplary real maze 
 :-------------------------:|:-------------------------:
 ![3D plot of examplary maze](https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/plot_maze.png)  |  ![Examplary real maze](https://github.com/NikHoh/apriltag-maze/blob/main/maze_craft/images/real_maze.png)
 
@@ -11,7 +11,7 @@ Corresponding code in folder `maze_craft`.
 
 A maze consists of MDF walls (250mm x 170mm x 3mm). Each wall consists of 4 AprilTags. One big and one small AprilTag on each side. 
 
-Looking from abow on a maze, the coordinate system origin is in the upper left corner with the x-axis pointing downwards and the y-axis pointing to the right.
+Looking from above on a maze, the coordinate system origin is in the upper left corner with the x-axis pointing downwards and the y-axis pointing to the right.
 
 By convention, the smallest AprilTag ID on a wall is a multiple of 4. It belongs to the big AprilTag that by convention either points to North (on a horizontal wall) or to West (on a vertical wall). The small tag on the same side of the wall has ID +1. The big tag on the other side of the wall (pointing South or East) has ID +1. The small tag in the other side has ID +1.
 
@@ -33,11 +33,11 @@ Corresponding code in folder `setup_maze`.
 
 In a command window run `python maze_builder.py` (Python 3) and follow the instructions on the screen. The program will read in the AprilTags IDs of your current maze configuration, plot it, and save the corresponding tags.yaml file, which is used by the AprilTag Detection to localize with respect to the maze, in the folder `output`.
 
-An exmaplary command line input, which generates the maze seen in the picture above, is:
+An exemplary command line input, which generates the maze seen in the picture above, is:
 
 [Exemplary command line input](https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/console_example.png)
 
-The described pipeline to generate the yaml data for a specific maze configuration is coded adaptively. If you want to adapt parameters like the size of walls or the space between walls, you can simply adapt them in the `class Wall` in `wall.py` (e.g. parameters `width`, `height`, and `thickness`) and the `class Maze` in  `maze.py` (e.g. parameters `offset-to_ground` and `space_between_walls`).
+The described pipeline to generate the yaml data for a specific maze configuration is coded adaptively. If you want to adapt parameters like the size of walls or the space between walls, you can simply adapt them in the `class Wall` in `wall.py` (e.g. parameters `width`, `height`, and `thickness`) and the `class Maze` in  `maze.py` (e.g. parameters `offset_to_ground` and `space_between_walls`).
 
 Have fun!
 
