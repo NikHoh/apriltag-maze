@@ -197,12 +197,16 @@ class Maze(object):
                 text_path = TextPath((0, 0), s, size=size, usetex=False)
                 trans = Affine2D().rotate(angle).translate(xy1[0], xy1[1])
 
-                p1 = PathPatch(trans.transform_path(text_path), **kwargs)
+                p1 = PathPatch(trans.transform_path(text_path), edgecolor="k", facecolor="k", **kwargs)
                 ax.add_patch(p1)
                 art3d.pathpatch_2d_to_3d(p1, z=z1, zdir=zdir)
             fig = plt.figure()
             ax = fig.add_subplot(projection='3d')
 
+            ris_green = (0.0, 157/255, 129/255, 1.0) # RGBA
+            cream = (209/255, 240/255, 177/255, 1.0) # RGBA
+            light_blue = (0/255, 105/255, 146/255, 1.0) # RGBA
+            dark_blue = (39/255, 71/255, 110/255, 1.0) # RGBA
 
             for wall in self.walls:
                 # plot the side of the wall with the smallest id
@@ -211,26 +215,26 @@ class Maze(object):
                                    wall.pos_z - (wall.height / 2)),
                                    wall.width,
                                    wall.height,
-                                   color="b")
+                                   color=ris_green)
                     text3d(ax, (wall.pos_x-50, wall.pos_y, 0), str(wall.tags[0].tag_id), zdir="z", angle=-math.pi/2, size=40, zorder=10)
                     r2 = Rectangle((wall.pos_y - (wall.width / 2),
                                     wall.pos_z - (wall.height / 2)),
                                    wall.width,
                                    wall.height,
-                                   color="r")
+                                   color=cream)
                     text3d(ax, (wall.pos_x+50, wall.pos_y, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi/2, size=40, zorder=10)
                 elif wall.placement == Placement.VERTICAL:
                     r1 = Rectangle((wall.pos_x - (wall.width / 2),
                                     wall.pos_z - (wall.height / 2)),
                                    wall.width,
                                    wall.height,
-                                   color="b")
+                                   color=light_blue)
                     text3d(ax, (wall.pos_x, wall.pos_y-50, 0), str(wall.tags[0].tag_id), zdir="z", size=40, zorder=10)
                     r2 = Rectangle((wall.pos_x - (wall.width / 2),
                                     wall.pos_z - (wall.height / 2)),
                                    wall.width,
                                    wall.height,
-                                   color="r")
+                                   color=dark_blue)
                     text3d(ax, (wall.pos_x, wall.pos_y+50, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi, size=40, zorder=10)
                 ax.add_patch(r1)
                 ax.add_patch(r2)
