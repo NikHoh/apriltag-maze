@@ -164,3 +164,6 @@ tag48_12_*.png
 
 # Ignore AprilTag specific svg files
 tag48_12_*.svg
+
+# Ingore yaml output
+maze_setup/output/*.yaml
