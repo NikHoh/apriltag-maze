@@ -44,9 +44,8 @@ class Maze(object):
         correct input that is
         1. Correct number of rows
         2. Correct number of walls per rows
-        3. Only even non-negative wall IDs or -1
+        3. Only even wall IDs or -1
         4. No repitions in tag IDs
-        5. Tag IDs are multiples of 4
         """
         everything_okay = True
         if not len(self.rows_with_horizontal_walls) == self.number_of_rows_horizontal_walls:
@@ -87,16 +86,9 @@ class Maze(object):
     def check_tag_id(self, row):
         everything_okay = True
         for val in row:
-            if val >= 0:
+            if val != -1:
                 if val % 2 != 0:
                     print("IDs must be even")
-                    everything_okay = False
-                if val % 4 != 0:
-                    print("IDs must be multiples of 4 (look at the assumptions).")
-                    everything_okay = False
-            else:
-                if val != -1:
-                    print("If there is no wall -1 must be given")
                     everything_okay = False
         return everything_okay
 
@@ -168,6 +160,7 @@ class Maze(object):
         if user_input == "y":
             import matplotlib
             import matplotlib.pyplot as plt
+            matplotlib.use('TkAgg')
             from matplotlib.patches import PathPatch
             from matplotlib.patches import Rectangle
             from matplotlib.text import TextPath
@@ -226,26 +219,44 @@ class Maze(object):
                                    wall.width,
                                    wall.height,
                                    color=ris_green)
-                    text3d(ax, (wall.pos_x-50, wall.pos_y, 0), str(wall.tags[0].tag_id), zdir="z", angle=-math.pi/2, size=40, zorder=10)
+                    if wall.smallest_tag_id >= 0:
+                        text3d(ax, (wall.pos_x-50, wall.pos_y, 0), str(wall.tags[0].tag_id), zdir="z", angle=-math.pi/2, size=40, zorder=10)
+                    else:
+                        text3d(ax, (wall.pos_x + 50, wall.pos_y, 0), str(wall.tags[0].tag_id), zdir="z",
+                               angle=math.pi / 2, size=40, zorder=10)
                     r2 = Rectangle((wall.pos_y - (wall.width / 2),
                                     wall.pos_z - (wall.height / 2)),
                                    wall.width,
                                    wall.height,
                                    color=cream)
-                    text3d(ax, (wall.pos_x+50, wall.pos_y, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi/2, size=40, zorder=10)
+                    if len(wall.tags) > 2:
+                        if wall.small_tag_size >= 0:
+                            text3d(ax, (wall.pos_x+50, wall.pos_y, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi/2, size=40, zorder=10)
+                        else:
+                            text3d(ax, (wall.pos_x - 50, wall.pos_y, 0), str(wall.tags[2].tag_id), zdir="z",
+                                   angle=-math.pi / 2, size=40, zorder=10)
                 elif wall.placement == Placement.VERTICAL:
                     r1 = Rectangle((wall.pos_x - (wall.width / 2),
                                     wall.pos_z - (wall.height / 2)),
                                    wall.width,
                                    wall.height,
                                    color=light_blue)
-                    text3d(ax, (wall.pos_x, wall.pos_y-50, 0), str(wall.tags[0].tag_id), zdir="z", size=40, zorder=10)
+                    if wall.smallest_tag_id >= 0:
+                        text3d(ax, (wall.pos_x, wall.pos_y-50, 0), str(wall.tags[0].tag_id), zdir="z", size=40, zorder=10)
+                    else:
+                        text3d(ax, (wall.pos_x, wall.pos_y + 50, 0), str(wall.tags[0].tag_id), zdir="z", angle=math.pi,
+                               size=40, zorder=10)
                     r2 = Rectangle((wall.pos_x - (wall.width / 2),
                                     wall.pos_z - (wall.height / 2)),
                                    wall.width,
                                    wall.height,
                                    color=dark_blue)
-                    text3d(ax, (wall.pos_x, wall.pos_y+50, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi, size=40, zorder=10)
+                    if len(wall.tags) > 2:
+                        if wall.small_tag_size >= 0:
+                            text3d(ax, (wall.pos_x, wall.pos_y+50, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi, size=40, zorder=10)
+                        else:
+                            text3d(ax, (wall.pos_x, wall.pos_y - 50, 0), str(wall.tags[2].tag_id), zdir="z", size=40,
+                                   zorder=10)
                 ax.add_patch(r1)
                 ax.add_patch(r2)
                 if wall.placement == Placement.HORIZONTAL:

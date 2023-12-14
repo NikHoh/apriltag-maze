@@ -75,11 +75,13 @@ def get_positive_interger_input(message:str) -> int:
     return user_input
 
 def get_wall_id_input(message:str) -> List[int]:
-    """Asks for a user input being space separated integers that are expected to be non-negative and even"""
+    """Asks for a user input being space separated integers that are expected to be even, or -1 (special case)."""
     user_input = None
     while True:
         try:
             user_input = input(message)
+            if "-0" in user_input:
+                print("The wall with tag ID 0 is a special case that is not allowed to look downwards or right. Please flip the wall.")
             if "." in user_input or "," in user_input:
                 print("You must not use commas for separation (only space) and no float values are permitted")
                 continue
@@ -94,8 +96,8 @@ def get_wall_id_input(message:str) -> List[int]:
         for val in user_input:
             if val == -1:
                 continue
-            if val % 2 != 0 or val < -1:
-                print("Your input must be positive even integers separated by a space (e.g. 2 64 6 10")
+            if val % 2 != 0:
+                print("Your input must be even (or -1) integers separated by a space (e.g. 2 -1 -6 10")
                 all_valid = False
                 break
         if all_valid:
@@ -125,15 +127,14 @@ class MazeBuilder(object):
         print("Looking from above on the maze, the coordinate system frame in in the top left of the maze.")
         print("The x axis is pointing downwards, the y axis is pointing to the right")
         print("The maze consists of walls.")
-        print("A wall is assumed to have two AprilTags on the front (one big, one small) and two AprilTags on the back "
+        print("A wall is assumed to have two AprilTags on the front (one big, one small) and optionally two AprilTags on the back "
               "(again one big and one small)")
-        print("The four IDs of the four AprilTags on one wall are always sequential and start with an even integer that "
-              "is a multiple of 4, e.g.,"
-              "4,5,6,7 are the four IDs on a wall.")
-        print("When I ask you for the ID of a wall, I only need the smallest (and thus even) ID on the wall.")
+        print("The big tag on one side has always an even ID.")
+        print("When I ask you for the ID of a wall, I only need the smallest (and even) ID on the wall.")
         border_line()
         print("Important: Looking from the bird's perspective on the maze, I assume that the tag with the smallest ID "
               "on the wall either 'looks' up (in negative x direction called NORTH) or 'looks' left (in negative y direction called WEST)")
+        print("If you want to me to flip the wall, e.g. the smallest tag ID looking to the right or down, then you previx the ID with a Minus (e.g. -4 instead of 4).")
         border_line()
         print("Let's start building your maze.")
         num_rows = get_positive_interger_input("How many rows (in x direction) does your maze have?")
@@ -157,8 +158,8 @@ class MazeBuilder(object):
 
     def get_maze_ids_from_user(self):
         print("In the following, give the tag IDs of a row of horizontal walls and then of a row of vertial walls, "
-              "until all tags are given. Only use the smallest ID on a wall. Make sure the tag either faces upwards or "
-              "to the left. If there is no wall at a position where a wall could be use -1")
+              "until all tags are given. Only use the smallest ID on a wall. If the smallest tag either faces upwards or "
+              "to the left, you give me the pure tag ID, else you give me the negative tag ID. If there is no wall at a position where a wall could be use -1")
         print("Looking from the bird's perspective we begin with the tag in the left upper corner")
         tag_ids_horizontal_walls = []
         tag_ids_vertical_walls = []
@@ -167,7 +168,7 @@ class MazeBuilder(object):
                 while True:
                     user_input = get_wall_id_input(
                         f"Looking at the row of horizontal walls no. {idx + 1}, name the smallest ID on every "
-                        "wall (it should look upwards) going from left to right. (-1 for missing wall)")
+                        "wall going from left to right. (-1 for missing wall)")
                     if len(user_input) != self.maze.num_horizontal_walls_per_row:
                         print(
                             f"According to the given size of the maze the number of given IDs and -1s must be {self.maze.num_horizontal_walls_per_row}.")
@@ -179,7 +180,7 @@ class MazeBuilder(object):
                 while True:
                     user_input = get_wall_id_input(
                         f"Looking at the row of vertical walls no. {idx + 1}, name the smallest ID on every "
-                        "wall (it should look to the left) going from left to right. (-1 for missing wall)")
+                        "wall going from left to right. (-1 for missing wall)")
                     if len(user_input) != self.maze.num_vertical_walls_per_row:
                         print(
                             f"According to the given size of the maze the number of given IDs and -1s must be {self.maze.num_vertical_walls_per_row}.")
