@@ -51,10 +51,10 @@ def main():
      indexed beginning on the top left of the plate going to the right, and then down."""
 
     # USER INPUT START
-    name_for_new_svg_file = "Plate_3_vorne.svg"
+    name_for_new_svg_file = "Plate_4_hinten.svg"
 
     # Do you want to create front (with laser cut) or back?
-    front = True
+    front = False
 
     # A plate consists of 12 walls (25cm x 17cm) that are arranged 2 x 6 on the plate.
     # Give the Tag numbers that you want to have on the wall (only even ones are accepted as every even tag is
@@ -67,11 +67,11 @@ def main():
     # tag_numbers = [48, 52, 56, 60, 64, 68, 72, 76, 80, 84, 88, 92] # Plate 2 front (single plate)
     # tag_numbers = [70, 66, 62, 58, 54, 50, 94, 90, 86, 82, 78, 74] # reserved for Plate 2 back (will never be used)
 
-    tag_numbers = [96, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140]  # Plate 3 front (double plate)
+    # tag_numbers = [96, 100, 104, 108, 112, 116, 120, 124, 128, 132, 136, 140]  # Plate 3 front (double plate)
     # tag_numbers = [118, 114, 110, 106, 102,  98, 142, 138, 134, 130, 126, 122] # Plate 3 back
 
     # tag_numbers = [144, 148, 152, 156, 160, 164, 168, 172, 176, 180, 184, 188]  # Plate 4 front (double plate)
-    # tag_numbers = [166, 162, 158, 154, 150, 146, 190, 186, 182, 178, 174, 170] # Plate 4 back
+    tag_numbers = [166, 162, 158, 154, 150, 146, 190, 186, 182, 178, 174, 170] # Plate 4 back
 
     # tag_numbers = [192, 196, 200, 204, 208, 212, 216, 220, 224, 228, 232, 236] # Plate 5 front (single plate)
     # tag_numbers = [214, 210, 206, 202, 198, 194, 238, 234, 230, 226, 222, 218] # reserved for Plate 5 back (will never be used)
