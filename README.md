@@ -3,7 +3,7 @@ Code to craft (lasercut) a wooden maze, whose walls are engraved with AprilTags 
 
 3D plot of exemplary maze            |  Exemplary real maze 
 :-------------------------:|:-------------------------:
-![3D plot of examplary maze](<img src="https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/plot_maze.png" width="1000" />)  |  ![Examplary real maze](<img src="https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/image_maze.png" width="1000" />)
+![3D plot of examplary maze](<img src="https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/plot_maze.png" width="1000" height="770" />)  |  ![Examplary real maze](<img src="https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/image_maze.png" width="1000" height="553" />)
 
 ## Craft a maze
 
