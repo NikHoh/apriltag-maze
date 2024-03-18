@@ -3,7 +3,7 @@ Code to craft (lasercut) a wooden maze, whose walls are engraved with AprilTags 
 
 3D plot of exemplary maze            |  Exemplary real maze 
 :-------------------------:|:-------------------------:
-![3D plot of examplary maze](https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/plot_maze.png)  |  ![Examplary real maze](https://github.com/NikHoh/apriltag-maze/blob/main/maze_craft/images/real_maze.png)
+![3D plot of examplary maze](https://github.com/NikHoh/apriltag-maze/blob/main/maze_setup/images/plot_maze.png)  |  ![Examplary real maze](https://github.com/NikHoh/apriltag-maze/blob/main/maze_craft/images/image_maze.jpg)
 
 ## Craft a maze
 
@@ -13,7 +13,7 @@ A maze consists of MDF walls (250mm x 170mm x 3mm). Each wall consists of 4 Apri
 
 Looking from above on a maze, the coordinate system origin is in the upper left corner with the x-axis pointing downwards and the y-axis pointing to the right.
 
-By convention, the smallest AprilTag ID on a wall is a multiple of 4. It belongs to the big AprilTag that by convention either points to North (on a horizontal wall) or to West (on a vertical wall). The small tag on the same side of the wall has ID +1. The big tag on the other side of the wall (pointing South or East) has ID +1. The small tag in the other side has ID +1.
+By convention, the smallest AprilTag ID on a wall is a multiple of 4. It belongs to the big AprilTag that by convention and by default either points to North (on a horizontal wall) or to West (on a vertical wall). The small tag on the same side of the wall has ID +1. If there are tags on the other side, the big tag on the other side of the wall (pointing South or East) has ID +2. The small tag in the other side has ID +3.
 
 Get png data of AprilTag family from https://github.com/AprilRobotics/apriltag-imgs and place it in the folder `tagCustom48h12`
 

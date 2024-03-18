@@ -230,7 +230,7 @@ class Maze(object):
                                    wall.height,
                                    color=cream)
                     if len(wall.tags) > 2:
-                        if wall.small_tag_size >= 0:
+                        if wall.smallest_tag_id >= 0:
                             text3d(ax, (wall.pos_x+50, wall.pos_y, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi/2, size=40, zorder=10)
                         else:
                             text3d(ax, (wall.pos_x - 50, wall.pos_y, 0), str(wall.tags[2].tag_id), zdir="z",
@@ -252,7 +252,7 @@ class Maze(object):
                                    wall.height,
                                    color=dark_blue)
                     if len(wall.tags) > 2:
-                        if wall.small_tag_size >= 0:
+                        if wall.smallest_tag_id >= 0:
                             text3d(ax, (wall.pos_x, wall.pos_y+50, 0), str(wall.tags[2].tag_id), zdir="z", angle=math.pi, size=40, zorder=10)
                         else:
                             text3d(ax, (wall.pos_x, wall.pos_y - 50, 0), str(wall.tags[2].tag_id), zdir="z", size=40,
