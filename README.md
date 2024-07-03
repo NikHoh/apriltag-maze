@@ -13,8 +13,7 @@ A maze consists of MDF walls (250mm x 170mm x 3mm). Each wall consists of 4 Apri
 
 Looking from above on a maze, the coordinate system origin is in the upper left corner with the x-axis pointing downwards and the y-axis pointing to the right.
 
-By convention, the smallest AprilTag ID on a wall is a multiple of 4. It belongs to the big AprilTag that by convention and by default either points to North (on a horizontal wall) or to West (on a vertical wall). The small tag on the same side of the wall has ID +1. If there are tags on the other side, the big tag on the other side of the wall (pointing South or East) has ID +2. The small tag in the other side has ID +3.
-
+By convention, the smallest AprilTag ID on a wall is a multiple of 4. It belongs to the big AprilTag that by convention and by default either points to North (on a horizontal wall) or to West (on a vertical wall). The small tag on the same side of the wall has ID +1. 
 Get png data of AprilTag family from https://github.com/AprilRobotics/apriltag-imgs and place it in the folder `tagCustom48h12`
 
 Use `process_tags.py` to convert png tags into svg data (internally uses `tag_to_svg.py`).
