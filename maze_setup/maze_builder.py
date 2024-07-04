@@ -29,7 +29,7 @@ def replace_string_in_string(complete_string:str, old_string:str, new_string:str
     assert old_string in complete_string, f"Expected string {old_string} not found in complete string"
     return complete_string.replace(old_string, new_string)
 
-def get_yaml_line_for(tag: Tag, last_tag=False) -> str:
+def get_yaml_line_for(tag: Tag, last_tag=False, standalone=False) -> str:
     if tag.size.x == 140:
         size = "0.084"   # the yaml file takes the inner size of the tag in m
     elif tag.size.x == 28:
@@ -52,7 +52,12 @@ def get_yaml_line_for(tag: Tag, last_tag=False) -> str:
     else:
         assert 1 == 0, "Unknown orientation"
 
-    tag_string = f"{{id: {id}, size: {size}, x: {x}, y: {y}, z: {z}, {orientation_string}}}"
+    if standalone:
+        # only id, size and name for standalone tags
+        tag_string = f"{{id: {id}, size: {size}, name: tag_{id}"
+    else:
+        # x,y,z-position and orientation as extra entries for tag_bundle
+        tag_string = f"{{id: {id}, size: {size}, x: {x}, y: {y}, z: {z}, {orientation_string}}}"
     if last_tag:
         tag_string += "\n"
     else:
@@ -212,11 +217,15 @@ class MazeBuilder(object):
 
         for wall_idx, wall in enumerate(self.maze.walls):
             for tag_idx, tag in enumerate(wall.tags):
-                maze_yaml_text += get_yaml_line_for(tag, last_tag=(wall_idx==len(self.maze.walls)-1 and tag_idx == len(wall.tags)-1))
+                # text for tag_bundle
+                maze_yaml_text += get_yaml_line_for(tag, last_tag=(wall_idx==len(self.maze.walls)-1 and tag_idx == len(wall.tags)-1), standalone=False)
+                # text for standalone_tags
+                standalone_yaml_text += get_yaml_line_for(tag, last_tag=(wall_idx==len(self.maze.walls)-1 and tag_idx == len(wall.tags)-1), standalone=True)
 
         file_content = read_yaml_file(os.path.join(os.getcwd(), "do_not_touch", "empty_tags.yaml"))
 
-        file_content = replace_string_in_string(file_content, "add_tag_description_here", maze_yaml_text)
+        file_content = replace_string_in_string(file_content, "add_tag_bundle_description_here", maze_yaml_text)
+        file_content = replace_string_in_string(file_content, "add_standalone_tag_description_here", standalone_yaml_text)
 
         save_yaml_file(file_content, save_path)
 
