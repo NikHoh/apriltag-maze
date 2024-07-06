@@ -54,7 +54,7 @@ def get_yaml_line_for(tag: Tag, last_tag=False, standalone=False) -> str:
 
     if standalone:
         # only id, size and name for standalone tags
-        tag_string = f"{{id: {id}, size: {size}, name: tag_{id}"
+        tag_string = f"{{id: {id}, size: {size}, name: tag_{id}}}"
     else:
         # x,y,z-position and orientation as extra entries for tag_bundle
         tag_string = f"{{id: {id}, size: {size}, x: {x}, y: {y}, z: {z}, {orientation_string}}}"
@@ -214,6 +214,7 @@ class MazeBuilder(object):
                 break
 
         maze_yaml_text = ""
+        standalone_yaml_text = ""
 
         for wall_idx, wall in enumerate(self.maze.walls):
             for tag_idx, tag in enumerate(wall.tags):
